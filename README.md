@@ -3,12 +3,10 @@
 # PythonRobotics
 ![GitHub_Action_Linux_CI](https://github.com/AtsushiSakai/PythonRobotics/workflows/Linux_CI/badge.svg)
 ![GitHub_Action_MacOS_CI](https://github.com/AtsushiSakai/PythonRobotics/workflows/MacOS_CI/badge.svg)
-[![Build Status](https://travis-ci.org/AtsushiSakai/PythonRobotics.svg?branch=master)](https://travis-ci.org/AtsushiSakai/PythonRobotics)
-[![Documentation Status](https://readthedocs.org/projects/pythonrobotics/badge/?version=latest)](https://pythonrobotics.readthedocs.io/en/latest/?badge=latest)
 [![Build status](https://ci.appveyor.com/api/projects/status/sb279kxuv1be391g?svg=true)](https://ci.appveyor.com/project/AtsushiSakai/pythonrobotics)
+[![Documentation Status](https://readthedocs.org/projects/pythonrobotics/badge/?version=latest)](https://pythonrobotics.readthedocs.io/en/latest/?badge=latest)
 [![codecov](https://codecov.io/gh/AtsushiSakai/PythonRobotics/branch/master/graph/badge.svg)](https://codecov.io/gh/AtsushiSakai/PythonRobotics)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/AtsushiSakai/PythonRobotics.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/AtsushiSakai/PythonRobotics/context:python)
-[![CodeFactor](https://www.codefactor.io/repository/github/atsushisakai/pythonrobotics/badge/master)](https://www.codefactor.io/repository/github/atsushisakai/pythonrobotics/overview/master)
 [![tokei](https://tokei.rs/b1/github/AtsushiSakai/PythonRobotics)](https://github.com/AtsushiSakai/PythonRobotics)
 
 Python codes for robotics algorithm.
@@ -37,6 +35,8 @@ Python codes for robotics algorithm.
       * [Grid based search](#grid-based-search)
          * [Dijkstra algorithm](#dijkstra-algorithm)
          * [A* algorithm](#a-algorithm)
+         * [D* algorithm](#d-algorithm)
+         * [D* Lite algorithm](#d-lite-algorithm)
          * [Potential Field algorithm](#potential-field-algorithm)
          * [Grid based coverage path planning](#grid-based-coverage-path-planning)
       * [State Lattice Planning](#state-lattice-planning)
@@ -96,17 +96,17 @@ See this paper for more details:
 
 For running each sample code:
 
-- Python 3.9.x
+- [Python 3.9.x](https://www.python.org/)
+ 
+- [NumPy](https://numpy.org/)
+ 
+- [SciPy](https://scipy.org/)
+ 
+- [Matplotlib](https://matplotlib.org/)
+ 
+- [pandas](https://pandas.pydata.org/)
 
-- numpy
-
-- scipy
-
-- matplotlib
-
-- pandas
-
-- [cvxpy](https://www.cvxpy.org/index.html) 
+- [cvxpy](https://www.cvxpy.org/) 
 
 For development:
   
@@ -116,7 +116,7 @@ For development:
   
 - mypy (for type check)
   
-- Sphinx (for document generation)
+- sphinx (for document generation)
   
 - pycodestyle (for code style check)
 
@@ -303,6 +303,31 @@ This is a 2D grid based the shortest path planning with A star algorithm.
 In the animation, cyan points are searched nodes.
 
 Its heuristic is 2D Euclid distance.
+
+### D\* algorithm
+
+This is a 2D grid based the shortest path planning with D star algorithm.
+
+![figure at master · nirnayroy/intelligentrobotics](https://github.com/AtsushiSakai/PythonRoboticsGifs/raw/master/PathPlanning/DStar/animation.gif)
+
+The animation shows a robot finding its path avoiding an obstacle using the D* search algorithm.
+
+Ref:
+
+- [D* Algorithm Wikipedia](https://en.wikipedia.org/wiki/D*)
+
+### D\* Lite algorithm
+
+This algorithm finds the shortest path between two points while rerouting when obstacles are discovered. It has been implemented here for a 2D grid.
+
+![D* Lite](https://github.com/AtsushiSakai/PythonRoboticsGifs/raw/master/PathPlanning/DStarLite/animation.gif)
+
+The animation shows a robot finding its path and rerouting to avoid obstacles as they are discovered using the D* Lite search algorithm.
+
+Refs:
+
+- [D* Lite](http://idm-lab.org/bib/abstracts/papers/aaai02b.pd)
+- [Improved Fast Replanning for Robot Navigation in Unknown Terrain](http://www.cs.cmu.edu/~maxim/files/dlite_icra02.pdf)
 
 ### Potential Field algorithm
 
@@ -581,11 +606,13 @@ If this project helps your robotics project, please let me know with creating an
 
 Your robot's video, which is using PythonRobotics, is very welcome!!
 
-This is a list of other user's comment and references:[users\_comments](https://github.com/AtsushiSakai/PythonRobotics/blob/master/users_comments.md)
+This is a list of user's comment and references:[users\_comments](https://github.com/AtsushiSakai/PythonRobotics/blob/master/users_comments.md)
 
 # Contribution
 
-Any contribution is welcome!!
+Any contribution is welcome!! 
+
+Please check this document:[How to contribute](https://pythonrobotics.readthedocs.io/en/latest/how_to_contribute.html#)
 
 # Citing
 
@@ -593,7 +620,7 @@ If you use this project's code for your academic work, we encourage you to cite 
 
 If you use this project's code in industry, we'd love to hear from you as well; feel free to reach out to the developers directly.
 
-# Support
+# Supporting this project
 
 If you or your company would like to support this project, please consider:
 
@@ -605,9 +632,9 @@ If you or your company would like to support this project, please consider:
 
 If you would like to support us in some other way, please contact with creating an issue.
 
-# Sponsors
+## Sponsors
 
-## [JetBrains](https://www.jetbrains.com/)
+### [JetBrains](https://www.jetbrains.com/)
 
 They are providing a free license of their IDEs for this OSS development.   
 
