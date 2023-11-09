@@ -10,6 +10,9 @@ Ref
 (http://www2.informatik.uni-freiburg.de/~stachnis/pdf/grisetti10titsmag.pdf)
 
 """
+import sys
+import pathlib
+sys.path.append(str(pathlib.Path(__file__).parent.parent.parent))
 
 import copy
 import itertools
@@ -63,7 +66,7 @@ def cal_observation_sigma():
     return sigma
 
 
-def calc_rotational_matrix(angle):
+def calc_3d_rotational_matrix(angle):
     return Rot.from_euler('z', angle).as_matrix()
 
 
@@ -82,8 +85,8 @@ def calc_edge(x1, y1, yaw1, x2, y2, yaw2, d1,
     edge.e[1, 0] = y2 - y1 - tmp3 + tmp4
     edge.e[2, 0] = 0
 
-    Rt1 = calc_rotational_matrix(tangle1)
-    Rt2 = calc_rotational_matrix(tangle2)
+    Rt1 = calc_3d_rotational_matrix(tangle1)
+    Rt2 = calc_3d_rotational_matrix(tangle2)
 
     sig1 = cal_observation_sigma()
     sig2 = cal_observation_sigma()
@@ -114,9 +117,9 @@ def calc_edges(x_list, z_list):
             for iz2 in range(len(z_list[t2][:, 0])):
                 if z_list[t1][iz1, 3] == z_list[t2][iz2, 3]:
                     d1 = z_list[t1][iz1, 0]
-                    angle1, phi1 = z_list[t1][iz1, 1], z_list[t1][iz1, 2]
+                    angle1, _ = z_list[t1][iz1, 1], z_list[t1][iz1, 2]
                     d2 = z_list[t2][iz2, 0]
-                    angle2, phi2 = z_list[t2][iz2, 1], z_list[t2][iz2, 2]
+                    angle2, _ = z_list[t2][iz2, 1], z_list[t2][iz2, 2]
 
                     edge = calc_edge(x1, y1, yaw1, x2, y2, yaw2, d1,
                                      angle1, d2, angle2, t1, t2)
@@ -185,7 +188,7 @@ def graph_based_slam(x_init, hz):
         for i in range(nt):
             x_opt[0:3, i] += dx[i * 3:i * 3 + 3, 0]
 
-        diff = dx.T @ dx
+        diff = (dx.T @ dx)[0, 0]
         print("iteration: %d, diff: %f" % (itr + 1, diff))
         if diff < 1.0e-5:
             break

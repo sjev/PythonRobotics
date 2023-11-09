@@ -12,13 +12,10 @@ Ref:
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
-sys.path.append("../../PathPlanning/CubicSpline/")
+import pathlib
+sys.path.append(str(pathlib.Path(__file__).parent.parent.parent))
 
-try:
-    import cubic_spline_planner
-except:
-    raise
-
+from PathPlanning.CubicSpline import cubic_spline_planner
 
 k = 0.5  # control gain
 Kp = 1.0  # speed proportional gain

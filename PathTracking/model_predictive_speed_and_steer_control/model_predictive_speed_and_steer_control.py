@@ -10,13 +10,10 @@ import cvxpy
 import math
 import numpy as np
 import sys
-sys.path.append("../../PathPlanning/CubicSpline/")
+import pathlib
+sys.path.append(str(pathlib.Path(__file__).parent.parent.parent))
 
-try:
-    import cubic_spline_planner
-except:
-    raise
-
+from PathPlanning.CubicSpline import cubic_spline_planner
 
 NX = 4  # x = x, y, v, yaw
 NU = 2  # a = [accel, steer]
@@ -175,9 +172,9 @@ def update_state(state, a, delta):
     state.yaw = state.yaw + state.v / WB * math.tan(delta) * DT
     state.v = state.v + a * DT
 
-    if state. v > MAX_SPEED:
+    if state.v > MAX_SPEED:
         state.v = MAX_SPEED
-    elif state. v < MIN_SPEED:
+    elif state.v < MIN_SPEED:
         state.v = MIN_SPEED
 
     return state
@@ -228,8 +225,9 @@ def predict_motion(x0, oa, od, xref):
 
 def iterative_linear_mpc_control(xref, x0, dref, oa, od):
     """
-    MPC contorl with updating operational point iteraitvely
+    MPC control with updating operational point iteratively
     """
+    ox, oy, oyaw, ov = None, None, None, None
 
     if oa is None or od is None:
         oa = [0.0] * T
@@ -272,7 +270,7 @@ def linear_mpc_control(xref, xbar, x0, dref):
 
         A, B, C = get_linear_model_matrix(
             xbar[2, t], xbar[3, t], dref[0, t])
-        constraints += [x[:, t + 1] == A * x[:, t] + B * u[:, t] + C]
+        constraints += [x[:, t + 1] == A @ x[:, t] + B @ u[:, t] + C]
 
         if t < (T - 1):
             cost += cvxpy.quad_form(u[:, t + 1] - u[:, t], Rd)
@@ -409,10 +407,11 @@ def do_simulation(cx, cy, cyaw, ck, sp, dl, initial_state):
         oa, odelta, ox, oy, oyaw, ov = iterative_linear_mpc_control(
             xref, x0, dref, oa, odelta)
 
+        di, ai = 0.0, 0.0
         if odelta is not None:
             di, ai = odelta[0], oa[0]
+            state = update_state(state, ai, di)
 
-        state = update_state(state, ai, di)
         time = time + DT
 
         x.append(state.x)

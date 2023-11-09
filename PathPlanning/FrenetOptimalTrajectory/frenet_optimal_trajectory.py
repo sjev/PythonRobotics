@@ -19,18 +19,12 @@ import matplotlib.pyplot as plt
 import copy
 import math
 import sys
-import os
+import pathlib
+sys.path.append(str(pathlib.Path(__file__).parent.parent))
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) +
-                "/../QuinticPolynomialsPlanner/")
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) +
-                "/../CubicSpline/")
-
-try:
-    from quintic_polynomials_planner import QuinticPolynomial
-    import cubic_spline_planner
-except ImportError:
-    raise
+from QuinticPolynomialsPlanner.quintic_polynomials_planner import \
+    QuinticPolynomial
+from CubicSpline import cubic_spline_planner
 
 SIM_LOOP = 500
 
@@ -122,7 +116,7 @@ class FrenetPath:
         self.c = []
 
 
-def calc_frenet_paths(c_speed, c_d, c_d_d, c_d_dd, s0):
+def calc_frenet_paths(c_speed, c_accel, c_d, c_d_d, c_d_dd, s0):
     frenet_paths = []
 
     # generate path to each offset goal
@@ -145,7 +139,7 @@ def calc_frenet_paths(c_speed, c_d, c_d_d, c_d_dd, s0):
             for tv in np.arange(TARGET_SPEED - D_T_S * N_S_SAMPLE,
                                 TARGET_SPEED + D_T_S * N_S_SAMPLE, D_T_S):
                 tfp = copy.deepcopy(fp)
-                lon_qp = QuarticPolynomial(s0, c_speed, 0.0, tv, 0.0, Ti)
+                lon_qp = QuarticPolynomial(s0, c_speed, c_accel, tv, 0.0, Ti)
 
                 tfp.s = [lon_qp.calc_point(t) for t in fp.t]
                 tfp.s_d = [lon_qp.calc_first_derivative(t) for t in fp.t]
@@ -231,8 +225,8 @@ def check_paths(fplist, ob):
     return [fplist[i] for i in ok_ind]
 
 
-def frenet_optimal_planning(csp, s0, c_speed, c_d, c_d_d, c_d_dd, ob):
-    fplist = calc_frenet_paths(c_speed, c_d, c_d_d, c_d_dd, s0)
+def frenet_optimal_planning(csp, s0, c_speed, c_accel, c_d, c_d_d, c_d_dd, ob):
+    fplist = calc_frenet_paths(c_speed, c_accel, c_d, c_d_d, c_d_dd, s0)
     fplist = calc_global_paths(fplist, csp)
     fplist = check_paths(fplist, ob)
 
@@ -248,7 +242,7 @@ def frenet_optimal_planning(csp, s0, c_speed, c_d, c_d_d, c_d_dd, ob):
 
 
 def generate_target_course(x, y):
-    csp = cubic_spline_planner.Spline2D(x, y)
+    csp = cubic_spline_planner.CubicSpline2D(x, y)
     s = np.arange(0, csp.s[-1], 0.1)
 
     rx, ry, ryaw, rk = [], [], [], []
@@ -280,6 +274,7 @@ def main():
 
     # initial state
     c_speed = 10.0 / 3.6  # current speed [m/s]
+    c_accel = 0.0  # current acceleration [m/ss]
     c_d = 2.0  # current lateral position [m]
     c_d_d = 0.0  # current lateral speed [m/s]
     c_d_dd = 0.0  # current lateral acceleration [m/s]
@@ -289,13 +284,14 @@ def main():
 
     for i in range(SIM_LOOP):
         path = frenet_optimal_planning(
-            csp, s0, c_speed, c_d, c_d_d, c_d_dd, ob)
+            csp, s0, c_speed, c_accel, c_d, c_d_d, c_d_dd, ob)
 
         s0 = path.s[1]
         c_d = path.d[1]
         c_d_d = path.d_d[1]
         c_d_dd = path.d_dd[1]
         c_speed = path.s_d[1]
+        c_accel = path.s_dd[1]
 
         if np.hypot(path.x[1] - tx[-1], path.y[1] - ty[-1]) <= 1.0:
             print("Goal")

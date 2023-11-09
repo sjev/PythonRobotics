@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Configuration file for the Sphinx documentation builder.
 #
@@ -13,8 +12,8 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+import sys
+sys.path.insert(0, os.path.abspath('../'))
 
 
 # -- Project information -----------------------------------------------------
@@ -39,10 +38,15 @@ release = ''
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'matplotlib.sphinxext.plot_directive',
     'sphinx.ext.autodoc',
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
+    'sphinx.ext.napoleon',
+    'sphinx.ext.imgconverter',
     'IPython.sphinxext.ipython_console_highlighting',
+    'sphinx_copybutton',
+    'sphinx_rtd_dark_mode',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -62,7 +66,7 @@ master_doc = 'index'
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = "en"
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -83,7 +87,7 @@ on_rtd = os.environ.get('READTHEDOCS') == 'True'
 if on_rtd:
     html_theme = 'default'
 else:
-    html_theme = 'sphinx_rtd_theme'
+    html_theme = 'sphinx_rtd_light_them'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -92,6 +96,17 @@ else:
 html_logo = '../icon.png'
 html_theme_options = {
     'display_version': False,
+}
+
+# replace "view page source" with "edit on github" in Read The Docs theme
+#  * https://github.com/readthedocs/sphinx_rtd_theme/issues/529
+html_context = {
+    'display_github': True,
+    'github_user': 'AtsushiSakai',
+    'github_repo': 'PythonRobotics',
+    'github_version': 'master',
+    "conf_py_path": "/docs/",
+    "source_suffix": source_suffix,
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,

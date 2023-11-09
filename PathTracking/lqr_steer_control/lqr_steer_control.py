@@ -10,13 +10,10 @@ import matplotlib.pyplot as plt
 import math
 import numpy as np
 import sys
-sys.path.append("../../PathPlanning/CubicSpline/")
+import pathlib
+sys.path.append(str(pathlib.Path(__file__).parent.parent.parent))
 
-try:
-    import cubic_spline_planner
-except:
-    raise
-
+from PathPlanning.CubicSpline import cubic_spline_planner
 
 Kp = 1.0  # speed proportional gain
 
@@ -26,7 +23,7 @@ R = np.eye(1)
 
 # parameters
 dt = 0.1  # time tick[s]
-L = 0.5  # Wheel base of the vehicle [m]
+L = 0.5  # Wheelbase of the vehicle [m]
 max_steer = np.deg2rad(45.0)  # maximum steering angle[rad]
 
 show_animation = True

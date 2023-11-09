@@ -50,6 +50,8 @@ At the least, try to run the example code without animation in the unit test.
 
 If you want to run the test suites locally, you can use the `runtests.sh` script by just executing it.
 
+The `test_codestyle.py`_ check code style for your PR's codes.
+
 
 .. _`how to write doc`:
 
@@ -64,6 +66,10 @@ You can add a new rst file under the subdirectory in `doc modules dir`_ and the 
 Please check other documents for details.
 
 You can build the doc locally based on `doc README`_.
+
+Note that the `reStructuredText`_ based doc should only focus on the mathematics and the algorithm of the example.
+
+Documentations related codes should be in the python script as the header comments of the script or docstrings of each function.
 
 
 .. _`submit a pull request`:
@@ -141,7 +147,7 @@ Sponsors
 1. `JetBrains`_ : They are providing a free license of their IDEs for this OSS development.
 
 
-.. _`Python Robotics Docs`: https://pythonrobotics.readthedocs.io/en/latest/
+.. _`Python Robotics Docs`: https://atsushisakai.github.io/PythonRobotics
 .. _`bug labeled issues`: https://github.com/AtsushiSakai/PythonRobotics/issues?q=is%3Aissue+is%3Aopen+label%3Abug
 .. _`tests dir`: https://github.com/AtsushiSakai/PythonRobotics/tree/master/tests
 .. _`test_a_star.py`: https://github.com/AtsushiSakai/PythonRobotics/blob/master/tests/test_a_star.py
@@ -149,6 +155,7 @@ Sponsors
 .. _`reStructuredText`: https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html
 .. _`doc modules dir`: https://github.com/AtsushiSakai/PythonRobotics/tree/master/docs/modules
 .. _`doc README`: https://github.com/AtsushiSakai/PythonRobotics/blob/master/docs/README.md
+.. _`test_codestyle.py`: https://github.com/AtsushiSakai/PythonRobotics/blob/master/tests/test_codestyle.py
 .. _`JetBrains`: https://www.jetbrains.com/
 .. _`Sponsor @AtsushiSakai on GitHub Sponsors`: https://github.com/sponsors/AtsushiSakai
 .. _`Become a backer or sponsor on Patreon`: https://www.patreon.com/myenigma

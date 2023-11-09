@@ -3,11 +3,9 @@
 # PythonRobotics
 ![GitHub_Action_Linux_CI](https://github.com/AtsushiSakai/PythonRobotics/workflows/Linux_CI/badge.svg)
 ![GitHub_Action_MacOS_CI](https://github.com/AtsushiSakai/PythonRobotics/workflows/MacOS_CI/badge.svg)
+![GitHub_Action_Windows_CI](https://github.com/AtsushiSakai/PythonRobotics/workflows/Windows_CI/badge.svg)
 [![Build status](https://ci.appveyor.com/api/projects/status/sb279kxuv1be391g?svg=true)](https://ci.appveyor.com/project/AtsushiSakai/pythonrobotics)
-[![Documentation Status](https://readthedocs.org/projects/pythonrobotics/badge/?version=latest)](https://pythonrobotics.readthedocs.io/en/latest/?badge=latest)
 [![codecov](https://codecov.io/gh/AtsushiSakai/PythonRobotics/branch/master/graph/badge.svg)](https://codecov.io/gh/AtsushiSakai/PythonRobotics)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/AtsushiSakai/PythonRobotics.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/AtsushiSakai/PythonRobotics/context:python)
-[![tokei](https://tokei.rs/b1/github/AtsushiSakai/PythonRobotics)](https://github.com/AtsushiSakai/PythonRobotics)
 
 Python codes for robotics algorithm.
 
@@ -71,8 +69,9 @@ Python codes for robotics algorithm.
    * [Contribution](#contribution)
    * [Citing](#citing)
    * [Support](#support)
-   * [Sponsors](#Sponsors)
+   * [Sponsors](#sponsors)
       * [JetBrains](#JetBrains)
+      * [1Password](#1password)
    * [Authors](#authors)
 
 # What is this?
@@ -96,7 +95,7 @@ See this paper for more details:
 
 For running each sample code:
 
-- [Python 3.9.x](https://www.python.org/)
+- [Python 3.11.x](https://www.python.org/)
  
 - [NumPy](https://numpy.org/)
  
@@ -104,21 +103,19 @@ For running each sample code:
  
 - [Matplotlib](https://matplotlib.org/)
  
-- [pandas](https://pandas.pydata.org/)
-
 - [cvxpy](https://www.cvxpy.org/) 
 
 For development:
   
-- pytest (for unit tests)
+- [pytest](https://pytest.org/) (for unit tests)
   
-- pytest-xdist (for parallel unit tests)
+- [pytest-xdist](https://pypi.org/project/pytest-xdist/) (for parallel unit tests)
   
-- mypy (for type check)
+- [mypy](http://mypy-lang.org/) (for type check)
   
-- sphinx (for document generation)
+- [sphinx](https://www.sphinx-doc.org/) (for document generation)
   
-- pycodestyle (for code style check)
+- [pycodestyle](https://pypi.org/project/pycodestyle/) (for code style check)
 
 # Documentation
 
@@ -126,7 +123,7 @@ This README only shows some examples of this project.
 
 If you are interested in other examples or mathematical backgrounds of each algorithm, 
 
-You can check the full documentation online: [https://pythonrobotics.readthedocs.io/](https://pythonrobotics.readthedocs.io/)
+You can check the full documentation online: [Welcome to PythonRobotics’s documentation\! — PythonRobotics documentation](https://atsushisakai.github.io/PythonRobotics/index.html)
 
 All animation gifs are stored here: [AtsushiSakai/PythonRoboticsGifs: Animation gifs of PythonRobotics](https://github.com/AtsushiSakai/PythonRoboticsGifs)
 
@@ -134,18 +131,24 @@ All animation gifs are stored here: [AtsushiSakai/PythonRoboticsGifs: Animation 
 
 1. Clone this repo.
 
-> git clone https://github.com/AtsushiSakai/PythonRobotics.git
+   ```terminal
+   git clone https://github.com/AtsushiSakai/PythonRobotics.git
+   ```
 
 
 2. Install the required libraries.
 
-using conda :
+- using conda :
 
-> conda env create -f environment.yml
+  ```terminal
+  conda env create -f requirements/environment.yml
+  ```
  
-using pip :
+- using pip :
 
-> pip install -r requirements.txt
+  ```terminal
+  pip install -r requirements/requirements.txt
+  ```
 
 3. Add this library to the environment (in development mode)
 
@@ -161,7 +164,9 @@ using pip :
 
 <img src="https://github.com/AtsushiSakai/PythonRoboticsGifs/raw/master/Localization/extended_kalman_filter/animation.gif" width="640" alt="EKF pic">
 
-Documentation: [Notebook](https://github.com/AtsushiSakai/PythonRobotics/blob/master/Localization/extended_kalman_filter/extended_kalman_filter_localization.ipynb)
+Ref:
+
+- [documentation](https://atsushisakai.github.io/PythonRobotics/modules/localization/extended_kalman_filter_localization_files/extended_kalman_filter_localization.html)
 
 ## Particle filter localization
 
@@ -220,7 +225,7 @@ This is a 2D ray casting grid mapping example.
 
 This example shows how to convert a 2D range measurement to a grid map.
 
-![2](Mapping/lidar_to_grid_map/animation.gif)
+![2](https://github.com/AtsushiSakai/PythonRoboticsGifs/raw/master/Mapping/lidar_to_grid_map/animation.gif)
 
 ## k-means object clustering
 
@@ -532,7 +537,7 @@ Path tracking simulation with iterative linear model predictive speed and steeri
 
 Ref:
 
-- [notebook](https://github.com/AtsushiSakai/PythonRobotics/blob/master/PathTracking/model_predictive_speed_and_steer_control/Model_predictive_speed_and_steering_control.ipynb)
+- [documentation](https://atsushisakai.github.io/PythonRobotics/modules/path_tracking/model_predictive_speed_and_steering_control/model_predictive_speed_and_steering_control.html)
 
 - [Real\-time Model Predictive Control \(MPC\), ACADO, Python \| Work\-is\-Playing](http://grauonline.de/wordpress/?page_id=3244)
 
@@ -544,7 +549,7 @@ A motion planning and path tracking simulation with NMPC of C-GMRES
 
 Ref:
 
-- [notebook](https://github.com/AtsushiSakai/PythonRobotics/blob/master/PathTracking/cgmres_nmpc/cgmres_nmpc.ipynb)
+- [documentation](https://atsushisakai.github.io/PythonRobotics/modules/path_tracking/cgmres_nmpc/cgmres_nmpc.html)
 
 
 # Arm Navigation
@@ -584,7 +589,7 @@ This is a 3d trajectory generation simulation for a rocket powered landing.
 
 Ref:
 
-- [notebook](https://github.com/AtsushiSakai/PythonRobotics/blob/master/AerialNavigation/rocket_powered_landing/rocket_powered_landing.ipynb)
+- [documentation](https://atsushisakai.github.io/PythonRobotics/modules/aerial_navigation/rocket_powered_landing/rocket_powered_landing.html)
 
 # Bipedal
 
@@ -612,7 +617,7 @@ This is a list of user's comment and references:[users\_comments](https://github
 
 Any contribution is welcome!! 
 
-Please check this document:[How to contribute](https://pythonrobotics.readthedocs.io/en/latest/how_to_contribute.html#)
+Please check this document:[How To Contribute — PythonRobotics documentation](https://atsushisakai.github.io/PythonRobotics/how_to_contribute.html)
 
 # Citing
 
@@ -620,7 +625,7 @@ If you use this project's code for your academic work, we encourage you to cite 
 
 If you use this project's code in industry, we'd love to hear from you as well; feel free to reach out to the developers directly.
 
-# Supporting this project
+# <a id="support"></a>Supporting this project
 
 If you or your company would like to support this project, please consider:
 
@@ -632,11 +637,16 @@ If you or your company would like to support this project, please consider:
 
 If you would like to support us in some other way, please contact with creating an issue.
 
-## Sponsors
+## <a id="sponsors"></a>Sponsors
 
-### [JetBrains](https://www.jetbrains.com/)
+### <a id="JetBrains"></a>[JetBrains](https://www.jetbrains.com/)
 
 They are providing a free license of their IDEs for this OSS development.   
+
+### [1Password](https://github.com/1Password/1password-teams-open-source)
+
+They are providing a free license of their 1Password team license for this OSS project.   
+
 
 # Authors
 
